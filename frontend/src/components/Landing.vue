@@ -6,21 +6,21 @@
    </v-toolbar>
    <v-content>
      <section>
-       <v-parallax src="https://images.pexels.com/photos/1319458/pexels-photo-1319458.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" height="600">
+       <v-parallax :src="require('@/assets/hero.jpeg')" height="600">
          <v-layout
            column
            align-center
            justify-center
            class="white--text"
          >
-           <img src="" alt="Vuetify.js" height="200">
+           <img  src='@/assets/vuetify.png'  alt="Vuetify.js" height="200">
            <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1>
            <div class="subheading mb-3 text-xs-center">Powered by Vuetify</div>
            <v-btn
              class="blue lighten-2 mt-5"
              dark
              large
-             href="/pre-made-themes"
+             href="/dashboard"
            >
              Get Started
            </v-btn>
@@ -98,7 +98,7 @@
      </section>
 
      <section>
-       <v-parallax src="https://images.pexels.com/photos/1319459/pexels-photo-1319459.jpeg?cs=srgb&dl=blade-blur-business-1319459.jpg&fm=jpg" height="380">
+       <v-parallax :src="require('@/assets/section.jpg')" height="600">
          <v-layout column align-center justify-center>
            <div class="headline white--text mb-3 text-xs-center">Web development has never been easier</div>
            <em>Kick-start your application today</em>
