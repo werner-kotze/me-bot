@@ -14,15 +14,15 @@
            class="white--text"
          >
            <img  src='@/assets/vuetify.png'  alt="Vuetify.js" height="200">
-           <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1>
-           <div class="subheading mb-3 text-xs-center">Powered by Vuetify</div>
+           <h1 class="white--text mb-2 display-1 text-xs-center">Parallax</h1>
+           <div class="subheading mb-3 text-xs-center">Vuetify</div>
            <v-btn
              class="blue lighten-2 mt-5"
              dark
              large
              href="/dashboard"
            >
-             Get Started
+             Git Started
            </v-btn>
          </v-layout>
        </v-parallax>
@@ -39,7 +39,7 @@
            <div class="text-xs-center">
              <h2 class="headline">The best way to start developing</h2>
              <span class="subheading">
-               Cras facilisis mi vitae nunc
+               Heyyy Hooo
              </span>
            </div>
          </v-flex>
