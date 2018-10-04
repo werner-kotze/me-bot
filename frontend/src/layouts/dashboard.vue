@@ -92,7 +92,7 @@
 </script>
 
 <style lang="scss" scoped>
-  h1 {
-    text-align: center;
-  }
+    h1 {
+      text-align: center;
+    }
 </style>

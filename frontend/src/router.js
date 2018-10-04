@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Dashboard from '@/components/Dashboard.vue'
-import Landing from '@/components/Landing.vue'
-import Register from '@/components/Register.vue'
+import dashboard from '@/layouts/dashboard.vue'
+import landing from '@/layouts/landing.vue'
+import register from '@/layouts/register.vue'
 
 const routes = [
-  { path: '*', component: Landing },
-  { path: '/dashboard', component: Dashboard },
-  { path: '/register', component: Register }
+  { path: '*', component: landing },
+  { path: '/dashboard', component: dashboard },
+  { path: '/register', component: register }
 ]
 
 Vue.use(VueRouter)
