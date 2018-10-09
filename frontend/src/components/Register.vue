@@ -71,15 +71,15 @@
                </v-tooltip>
              </v-toolbar>
              <v-card-text>
-               <v-form>
-                 <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
-                 <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
+               <v-form @submit.prevent="postLogin(email, password)">
+                 <v-text-field v-model="email" prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
+                 <v-text-field v-model="password" prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
+                 <v-card-actions>
+                   <v-spacer></v-spacer>
+                   <v-btn type ='submit' color="primary">Login</v-btn>
+                 </v-card-actions>
                </v-form>
              </v-card-text>
-             <v-card-actions>
-               <v-spacer></v-spacer>
-               <v-btn color="primary">Login</v-btn>
-             </v-card-actions>
            </v-card>
          </v-flex>
        </v-layout>
@@ -90,13 +90,25 @@
   </v-app>
 </template>
 
+
+
 <script>
+import postLogin from '@/store/modules/auth'
+
   export default {
     data: () => ({
-      drawer: null
+      drawer: null,
+      email: '',
+      password: ''
     }),
     props: {
       source: String
+    },
+    methods: {
+      postLogin (email,password) {
+        this.$store
+          .dispatch('postLogin', {email, password}).then(()=> this.$router.push({name: 'dashboard'}))
+      }
     }
   }
 </script>
