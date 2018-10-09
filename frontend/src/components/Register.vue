@@ -19,7 +19,7 @@
        </v-list>
       </v-toolbar>
       <v-list dense>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
@@ -27,7 +27,7 @@
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <v-icon>question_answer</v-icon>
           </v-list-tile-action>
@@ -35,7 +35,7 @@
             <v-list-tile-title>FAQ</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile>
           <v-list-tile-action>
             <v-icon>lock</v-icon>
           </v-list-tile-action>
@@ -71,7 +71,7 @@
                </v-tooltip>
              </v-toolbar>
              <v-card-text>
-               <v-form @submit.prevent="postLogin(email, password)">
+               <v-form @submit.prevent="postLogin($data)">
                  <v-text-field v-model="email" prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
                  <v-text-field v-model="password" prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
                  <v-card-actions>
@@ -90,27 +90,24 @@
   </v-app>
 </template>
 
-
-
 <script>
-import postLogin from '@/store/modules/auth'
+import { mapActions } from 'vuex'
 
-  export default {
-    data: () => ({
-      drawer: null,
-      email: '',
-      password: ''
-    }),
-    props: {
-      source: String
-    },
-    methods: {
-      postLogin (email,password) {
-        this.$store
-          .dispatch('postLogin', {email, password}).then(()=> this.$router.push({name: 'dashboard'}))
-      }
-    }
+export default {
+  data: () => ({
+    drawer: null,
+    email: '',
+    password: ''
+  }),
+  props: {
+    source: String
+  },
+  methods: {
+    ...mapActions({
+      postLogin: 'postLogin'
+    })
   }
+}
 </script>
 
 <style lang="scss" scoped>
