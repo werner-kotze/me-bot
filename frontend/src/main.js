@@ -8,6 +8,7 @@ import axios from 'axios'
 import VueAnalytics from 'vue-analytics'
 
 import App from '@/App.vue'
+import * as firebase from 'firebase'
 import './registerServiceWorker'
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -31,6 +32,14 @@ Vue.use(Vuetify, {
 new Vue({
   router,
   store,
-
-  render: h => h(App)
+  render: h => h(App),
+  created() {
+    firebase.initializeApp({
+      apiKey: "AIzaSyBXEK2IakYa6zHX-bvvbIE7Ui6uG4qX5SM",
+      authDomain: "topnot-74d6f.firebaseapp.com",
+      databaseURL: "https://topnot-74d6f.firebaseio.com",
+      projectId: "topnot-74d6f",
+      storageBucket: "topnot-74d6f.appspot.com"
+    })
+  }
 }).$mount('#app')

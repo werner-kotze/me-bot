@@ -71,12 +71,34 @@
                </v-tooltip>
              </v-toolbar>
              <v-card-text>
-               <v-form @submit.prevent="postLogin($data)">
-                 <v-text-field v-model="email" prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
-                 <v-text-field v-model="password" prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
+               <v-form @submit.prevent="onSignup($data)">
+                 <v-text-field
+                   v-model="email"
+                   prepend-icon="person"
+                   name="email"
+                   label="Email"
+                   type="email">
+               </v-text-field>
+                 <v-text-field
+                   v-model="password"
+                   prepend-icon="lock"
+                   name="password"
+                   label="Password"
+                   id="password"
+                   type="password"
+                   required>
+               </v-text-field>
+                 <v-text-field
+                   v-model="confirmPassword"
+                   name="confirmPassword"
+                   label="Confirm Password"
+                   id="confirmPassword"
+                   type="password"
+                   :rules="[comparePasswords]">
+               </v-text-field>
                  <v-card-actions>
                    <v-spacer></v-spacer>
-                   <v-btn type ='submit' color="primary">Login</v-btn>
+                   <v-btn type ='submit' color="primary">Sign Up</v-btn>
                  </v-card-actions>
                </v-form>
              </v-card-text>
@@ -92,19 +114,36 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
     drawer: null,
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   }),
   props: {
     source: String
   },
+  computed: {
+    comparePasswords () {
+      return this.password !== this.confirmPassword ? 'Passwords do not match' : ''
+    },
+    ...mapGetters([
+      'user'
+    ])
+  },
+  watch: {
+    user (value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('dashboard')
+      }
+    }
+  },
   methods: {
     ...mapActions({
-      postLogin: 'postLogin'
+      onSignup: 'signUserUp'
     })
   }
 }

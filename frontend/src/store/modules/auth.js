@@ -1,13 +1,19 @@
 import axios from 'axios'
+import * as firebase from 'firebase'
 
 const state = {
   loggedIn: false,
   profile: {},
   validation: { email: true },
-  authError: false
+  authError: false,
+  user: null
 }
 
-const getters = {}
+const getters = {
+  user (state) {
+    return state.user
+  }
+}
 
 const mutations = {
   login (state) {
@@ -24,6 +30,9 @@ const mutations = {
   },
   setAuthError (state, bool) {
     state.authError = bool
+  },
+  setUser (state, payload) {
+    state.user = payload
   }
 }
 
@@ -48,6 +57,22 @@ const actions = {
         }
       })
       .catch(e => { console.log(e) })
+  },
+  signUserUp ({ commit }, payload) {
+    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+    .then(
+      user => {
+        const newUser = {
+          id: user.uid,
+          rating: []
+        }
+        commit('setUser', newUser)
+      }
+    ).catch (
+      error => {
+        console.log(error)
+      },
+    )
   },
   getProfile (context) {
     return axios.get('/api/users/profile')
