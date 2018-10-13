@@ -1,74 +1,20 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-    >
-    <v-toolbar flat class="transparent">
-       <v-list class="pa-0">
-         <v-list-tile avatar>
-           <v-list-tile-avatar>
-             <img src="https://randomuser.me/api/portraits/men/85.jpg">
-           </v-list-tile-avatar>
-
-           <v-list-tile-content>
-             <v-list-tile-title>Werner</v-list-tile-title>
-           </v-list-tile-content>
-         </v-list-tile>
-       </v-list>
-      </v-toolbar>
-      <v-list dense>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>question_answer</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>FAQ</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>lock</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Login</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-    </v-list>
-    </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"><v-icon>menu</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>topnot</v-toolbar-title>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
+        <v-layout row v-if="error">
+          <v-flex xs12 sm6 offset-sm3>
+            <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+          </v-flex>
+        </v-layout>
        <v-layout align-center justify-center>
          <v-flex xs12 sm8 md4>
            <v-card class="elevation-12">
              <v-toolbar dark color="indigo">
-               <v-toolbar-title>Login form</v-toolbar-title>
-               <v-spacer></v-spacer>
-               <v-tooltip bottom>
-                 <v-btn
-                   icon
-                   large
-                   :href="source"
-                   target="_blank"
-                   slot="activator"
-                 >
-                   <v-icon large>code</v-icon>
-                 </v-btn>
-                 <span>Source</span>
-               </v-tooltip>
+               <v-toolbar-title>Sign Up</v-toolbar-title>
              </v-toolbar>
              <v-card-text>
                <v-form @submit.prevent="onSignup($data)">
@@ -90,6 +36,7 @@
                </v-text-field>
                  <v-text-field
                    v-model="confirmPassword"
+                   prepend-icon="done"
                    name="confirmPassword"
                    label="Confirm Password"
                    id="confirmPassword"
@@ -98,7 +45,12 @@
                </v-text-field>
                  <v-card-actions>
                    <v-spacer></v-spacer>
-                   <v-btn type ='submit' color="primary">Sign Up</v-btn>
+                   <v-btn type="submit" :disabled="loading" :loading="loading">
+                    Sign up
+                     <span slot="loader" class="custom-loader">
+                      <v-icon light>cached</v-icon>
+                     </span>
+                   </v-btn>
                  </v-card-actions>
                </v-form>
              </v-card-text>
@@ -131,7 +83,9 @@ export default {
       return this.password !== this.confirmPassword ? 'Passwords do not match' : ''
     },
     ...mapGetters([
-      'user'
+      'user',
+      'error',
+      'loading'
     ])
   },
   watch: {
@@ -143,7 +97,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      onSignup: 'signUserUp'
+      onSignup: 'signUserUp',
+      onDismissed: 'clearError'
     })
   }
 }

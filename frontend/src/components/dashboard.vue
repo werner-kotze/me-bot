@@ -19,30 +19,23 @@
        </v-list>
       </v-toolbar>
       <v-list dense>
-        <v-list-tile @click="">
+        <v-list-tile
+          v-for="item in menuItems"
+          :key="item.title"
+          :to="item.link">
           <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
+          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile
+          v-if="userIsAuthenticated"
+          @click="onLogout">
           <v-list-tile-action>
-            <v-icon>question_answer</v-icon>
+            <v-icon>exit_to_app</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>FAQ</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>lock</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Login</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          <v-list-tile-content>Logout</v-list-tile-content>
+      </v-list-tile>
     </v-list>
     </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
@@ -87,6 +80,30 @@
     }),
     props: {
       source: String
+    },
+    computed: {
+      menuItems () {
+        let menuItems = [
+          {icon: 'face', title: 'Sign up', link: '/signup'},
+          {icon: 'lock_open', title: 'Sign in', link: '/'}
+        ]
+        if (this.userIsAuthenticated) {
+          menuItems = [
+            {icon: 'dashboard', title: 'Home', link: '/dashboard'},
+            {icon: 'question_answer', title: 'FAQ', link: '/'},
+            {icon: 'person', title: 'Profile', link: '/'}
+          ]
+        }
+        return menuItems
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    },
+    methods: {
+      onLogout () {
+        this.$store.dispatch('logout')
+      }
     }
   }
 </script>
