@@ -25,7 +25,6 @@ Vue.use(VueAnalytics, {
 Vue.use(Vuetify, {
   iconfont: 'fa',
   icons: {
-    'cancel': 'fas fa-ban',
     'menu': 'fas fa-ellipsis-v'
   }
 })

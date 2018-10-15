@@ -81,7 +81,7 @@ const actions = {
     commit('clearError')
   },
   logout ({commit}) {
-    firebase.auth().signOut()
+    firebase.auth().signOut().then(this.$router.push('dashboard'))
     commit('setUser', null)
   },
 }

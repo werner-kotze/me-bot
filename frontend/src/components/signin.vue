@@ -8,9 +8,7 @@
        <v-layout align-center justify-center>
          <v-flex xs12 sm8 md4>
            <v-layout row v-if="error">
-             <v-flex xs12 sm8 md4>
                <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-             </v-flex>
            </v-layout>
            <v-card class="elevation-12">
              <v-toolbar dark color="indigo">

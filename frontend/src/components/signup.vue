@@ -5,13 +5,11 @@
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
-        <v-layout row v-if="error">
-          <v-flex xs12 sm6 offset-sm3>
-            <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
-          </v-flex>
-        </v-layout>
        <v-layout align-center justify-center>
          <v-flex xs12 sm8 md4>
+           <v-layout row v-if="error">
+               <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+           </v-layout>
            <v-card class="elevation-12">
              <v-toolbar dark color="indigo">
                <v-toolbar-title>Sign Up</v-toolbar-title>

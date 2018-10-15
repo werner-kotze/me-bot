@@ -1,84 +1,95 @@
 import axios from 'axios'
+import * as firebase from 'firebase'
 
 const state = {
-  users: [],
-  emailFail: false,
-  tokenFail: false
-}
+  loadedHairdressers: [
+    {
+      imageUrl: '',
+      id: '',
+      title: '',
+      date: new Date(),
+      location: '',
+      description: ''
+    }
+  ]
+},
 
-const getters = {}
-
-const mutations = {
-  setUsers (state, users) {
-    state.users = users
-  },
-  setUser (state, user) {
-    state.user = user
-  },
-  setEmailFail (state, bool) {
-    state.emailFail = bool
-  },
-  setTokenFail (state, bool) {
-    state.tokenFail = bool
-  }
-}
-
-const actions = {
-  getUsersList (context) {
-    return axios.get('/api/users')
-      .then(response => { context.commit('setUsers', response.data) })
-      .catch(e => { console.log(e) })
-  },
-  getUser (context, userId) {
-    return axios.get('/api/users/' + userId)
-      .then(response => { context.commit('setUser', response.data) })
-      .catch(e => { console.log(e) })
-  },
-  createUser (context, payload) {
-    var avatar = payload.avatar
-    delete payload.avatar
-
-    return axios.post('/api/users/', payload)
-      .then(response => {
-        // Image upload
-        if (typeof avatar === 'object') {
-          let data = new FormData()
-          data.append('avatar', avatar)
-          return axios.patch('/api/users/' + response.data.id, data)
-        }
+getters = {
+    loadedHairdressers (state) {
+      return state.loadedHairdressers.sort((hairDressersA, hairDressersB) => {
+        return hairDressersA.date > hairDressersB.date
       })
-      .catch(e => { console.log(e) })
-  },
-  editUser (context, payload) {
-    var avatar = payload.avatar
-    delete payload.avatar
+    },
+    featuredHairdressers (state, getters) {
+      return getters.loadedHairdressers.slice(0, 5)
+    },
+    loadedHairdressers (state) {
+      return (hairdesserId) => {
+        return state.loadedHairdressers.find((hairdesser) => {
+          return hairdesser.id === hairdesserId
+        })
+      }
+    }
+},
 
-    return axios.patch('/api/users/' + payload.id, payload)
-      .then(response => {
-        // Image upload
-        if (typeof avatar === 'object') {
-          let data = new FormData()
-          data.append('avatar', avatar)
-          return axios.patch('/api/users/' + payload.id, data)
-        }
-      })
-      .catch(e => { console.log(e) })
+mutations = {
+  setLoadedHairdressers (state, payload) {
+  state.loadedHairdressers = payload
   },
-  deleteUser (context, userId) {
-    return axios.delete('/api/users/' + userId)
-      .then(response => {})
-      .catch(e => { console.log(e) })
-  },
-  passwordReset (context, user) {
-    return axios.post('/api/users/password_reset/', user)
-      .then(response => { context.commit('setEmailFail', false) })
-      .catch(e => { context.commit('setEmailFail', true) })
-  },
-  passwordChange (context, payload) {
-    return axios.post('/api/users/password_change/', payload)
-      .then(response => { context.commit('setTokenFail', false) })
-      .catch(e => { context.commit('setTokenFail', true) })
+  createHairdresser (state, payload) {
+    state.loadedHairdressers.push(payload)
   }
+},
+
+actions = {
+    loadHairdressers ({commit}) {
+      commit('setLoading', true)
+      firebase.database().ref('hairdessers').once('value')
+        .then((data) => {
+          const hairdesser = []
+          const obj = data.val()
+          for (let key in obj) {
+            hairdessers.push({
+              id: key,
+              title: obj[key].title,
+              description: obj[key].description,
+              imageUrl: obj[key].imageUrl,
+              date: obj[key].date,
+              creatorId: obj[key].creatorId
+            })
+          }
+          commit('setLoadedHairdressers', meetups)
+          commit('setLoading', false)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+            commit('setLoading', false)
+          }
+        )
+    },
+    createHairdresserProfile ({commit, getters}, payload) {
+      const hairdesser = {
+        title: payload.title,
+        location: payload.location,
+        imageUrl: payload.imageUrl,
+        description: payload.description,
+        date: payload.date.toISOString(),
+        creatorId: getters.user.id
+      }
+      firebase.database().ref('hairdessers').push(meetup)
+        .then((data) => {
+          const key = data.key
+          commit('createHairdresser', {
+            ...hairdesser,
+            id: key
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      // Reach out to firebase and store it
+    },
 }
 
 export default {
