@@ -4,12 +4,12 @@ import * as firebase from 'firebase'
 const state = {
   loadedHairdressers: [
     {
+      firstname: '',
+      lastname: '',
+      bio: '',
+      company: '',
       imageUrl: '',
-      id: '',
-      title: '',
-      date: new Date(),
-      location: '',
-      description: ''
+      age: null
     }
   ]
 },
@@ -58,7 +58,7 @@ actions = {
               creatorId: obj[key].creatorId
             })
           }
-          commit('setLoadedHairdressers', meetups)
+          commit('setLoadedHairdressers', hairdesser)
           commit('setLoading', false)
         })
         .catch(
@@ -70,14 +70,15 @@ actions = {
     },
     createHairdresserProfile ({commit, getters}, payload) {
       const hairdesser = {
-        title: payload.title,
-        location: payload.location,
+        firstname: payload.firstname,
+        lastname: payload.lastname,
         imageUrl: payload.imageUrl,
-        description: payload.description,
-        date: payload.date.toISOString(),
+        bio: payload.bio,
+        company: payload.company,
+        age: payload.age,
         creatorId: getters.user.id
       }
-      firebase.database().ref('hairdessers').push(meetup)
+      firebase.database().ref('hairdressers').push(hairdesser)
         .then((data) => {
           const key = data.key
           commit('createHairdresser', {

@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-toolbar color="indigo" dark fixed app>
+    <v-toolbar color="primary" dark fixed app>
       <v-toolbar-title>topnot</v-toolbar-title>
     </v-toolbar>
     <v-content>
@@ -11,7 +11,7 @@
                <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
            </v-layout>
            <v-card class="elevation-12">
-             <v-toolbar dark color="indigo">
+             <v-toolbar dark color="primary">
                <v-toolbar-title>Login</v-toolbar-title>
                <v-spacer></v-spacer>
                <v-tooltip bottom>
@@ -28,7 +28,7 @@
                </v-tooltip>
              </v-toolbar>
              <v-card-text>
-               <v-form @submit.prevent="onSignIn($data)">
+               <v-form  @submit.prevent="onSignIn($data)">
                  <v-text-field
                    v-model="email"
                    prepend-icon="person"
@@ -47,7 +47,7 @@
                </v-text-field>
                  <v-card-actions>
                    <v-spacer></v-spacer>
-                   <v-btn type="submit" color="primary" :disabled="loading" :loading="loading">
+                   <v-btn type="submit" color="accent" :disabled="loading" :loading="loading">
                     Sign in
                      <span slot="loader" class="custom-loader">
                       <v-icon light>cached</v-icon>
@@ -61,7 +61,7 @@
        </v-layout>
      </v-container>
     </v-content>
-    <v-footer color="indigo" app>
+    <v-footer color="primary" app>
     </v-footer>
   </v-app>
 </template>
@@ -89,7 +89,7 @@
     watch: {
       user (value) {
         if (value !== null && value !== undefined) {
-          this.$router.push('dashboard')
+          this.$router.push('profile')
         }
       }
     },
@@ -103,40 +103,4 @@
 </script>
 
 <style>
-  .custom-loader {
-    animation: loader 1s infinite;
-    display: flex;
-  }
-  @-moz-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @-webkit-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @-o-keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  @keyframes loader {
-    from {
-      transform: rotate(0);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
 </style>

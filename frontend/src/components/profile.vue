@@ -1,48 +1,84 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-    >
-    <v-toolbar flat class="transparent">
-       <v-list class="pa-0">
-         <v-list-tile avatar>
-           <v-list-tile-avatar>
-             <img src="https://randomuser.me/api/portraits/men/85.jpg">
-           </v-list-tile-avatar>
-
-           <v-list-tile-content>
-             <v-list-tile-title>John Leider</v-list-tile-title>
-           </v-list-tile-content>
-         </v-list-tile>
-       </v-list>
-      </v-toolbar>
-      <v-list dense>
-        <v-list-tile
-          v-for="item in menuItems"
-          :key="item.title"
-          :to="item.link">
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile
-          v-if="userIsAuthenticated"
-          @click="onLogout">
-          <v-list-tile-action>
-            <v-icon>exit_to_app</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>Logout</v-list-tile-content>
-      </v-list-tile>
-    </v-list>
-    </v-navigation-drawer>
     <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"><v-icon>menu</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>topnot</v-toolbar-title>
     </v-toolbar>
     <v-content>
+        <v-card flat>
+        <v-form ref="form" @submit.prevent="onCreateHairdresser">
+          <v-container grid-list-xl fluid>
+            <v-layout wrap>
+              <v-flex xs12 sm6>
+                <v-text-field
+                  name="firstname"
+                  label="First name"
+                  v-model="firstname"
+                  id="firstname"
+                  color="purple darken-2"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-text-field
+                  name="lastname"
+                  label="Last name"
+                  v-model="lastname"
+                  color="blue darken-2"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-text-field
+                  name="imageUrl"
+                  label="Image Url"
+                  v-model="imageUrl"
+                  color="blue darken-2"
+                  required
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12>
+                <v-textarea
+                  v-model="bio"
+                  color="teal"
+                >
+                  <div slot="label">
+                    Bio <small>(optional)</small>
+                  </div>
+                </v-textarea>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-select
+                  v-model="company"
+                  :items="companies"
+                  color="pink"
+                  label="Company"
+                  required
+                ></v-select>
+              </v-flex>
+              <v-flex xs12 sm6>
+                <v-slider
+                  v-model="age"
+                  color="orange"
+                  label="Age"
+                  hint="Be honest"
+                  min="1"
+                  max="100"
+                  thumb-label
+                ></v-slider>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              :disabled="!formIsValid"
+              flat
+              color="primary"
+              type="submit"
+            >Register</v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
     </v-content>
     <v-footer color="indigo" app>
     </v-footer>
@@ -50,40 +86,47 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      drawer: null
-    }),
-    props: {
-      source: String
+export default {
+    data () {
+      return {
+        firstname: '',
+        lastname: '',
+        bio: '',
+        company: '',
+        age: null,
+        imageUrl: '',
+        companies: [
+          'Chop Shop',
+          'Partners'
+        ]
+      }
     },
     computed: {
-      menuItems () {
-        let menuItems = [
-          {icon: 'face', title: 'Sign up', link: '/signup'},
-          {icon: 'lock_open', title: 'Sign in', link: '/'}
-        ]
-        if (this.userIsAuthenticated) {
-          menuItems = [
-            {icon: 'dashboard', title: 'Home', link: '/dashboard'},
-            {icon: 'question_answer', title: 'FAQ', link: '/'},
-            {icon: 'person', title: 'Profile', link: '/'}
-          ]
-        }
-        return menuItems
-      },
-      userIsAuthenticated () {
-        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      formIsValid() {
+        return this.firstname !== '' &&
+          this.lastname !== '' &&
+          this.company !== ''
       }
     },
     methods: {
-      onLogout () {
-        this.$store.dispatch('logout')
+      onCreateHairdresser () {
+        if (!this.formIsValid) {
+          return
+        }
+        const hairdresserData = {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          bio: this.bio,
+          company: this.company,
+          age: this.age,
+          imageUrl: this.imageUrl
+        }
+        this.$store.dispatch('createHairdresserProfile', hairdresserData)
+        this.$router.push('/dashboard')
       }
     }
   }
 </script>
-
 <style lang="scss" scoped>
   h1 {
     text-align: center;

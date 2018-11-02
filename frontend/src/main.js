@@ -3,6 +3,9 @@ import store from '@/store'
 import router from '@/router'
 import Vuetify from 'vuetify'
 import AlertCmp from '@/components/alert.vue'
+import './stylus/main.styl'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 import axios from 'axios'
 
@@ -23,9 +26,15 @@ Vue.use(VueAnalytics, {
 })
 
 Vue.use(Vuetify, {
-  iconfont: 'fa',
-  icons: {
-    'menu': 'fas fa-ellipsis-v'
+  iconfont: 'mdi',
+  theme: {
+    primary: '#512DA8',
+    secondary: '#F5F5F5',
+    accent: '#FFEB3B',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107'
   }
 })
 
