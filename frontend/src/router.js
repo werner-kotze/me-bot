@@ -7,9 +7,11 @@ import apiexample from '@/components/api-example.vue'
 import signup from '@/components/signup.vue'
 import signin from '@/components/signin.vue'
 import profile from '@/components/profile.vue'
+import knitterfinder from '@/components/knitterfinder.vue'
 
 const routes = [
   { path: '*', component: landing },
+  { path: '/knitterfinder', component: knitterfinder },
   { path: '/api-example', component: apiexample },
   { path: '/signup', component: signup },
   { path: '/signin', component: signin },
