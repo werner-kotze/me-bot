@@ -47,15 +47,6 @@
                 </v-textarea>
               </v-flex>
               <v-flex xs12 sm6>
-                <v-select
-                  v-model="company"
-                  :items="companies"
-                  color="pink"
-                  label="Company"
-                  required
-                ></v-select>
-              </v-flex>
-              <v-flex xs12 sm6>
                 <v-slider
                   v-model="age"
                   color="orange"
@@ -71,7 +62,6 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              :disabled="!formIsValid"
               flat
               color="primary"
               type="submit"
@@ -86,45 +76,45 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     data () {
       return {
         firstname: '',
         lastname: '',
         bio: '',
-        company: '',
-        age: null,
-        imageUrl: '',
-        companies: [
-          'Chop Shop',
-          'Partners'
-        ]
-      }
-    },
-    computed: {
-      formIsValid() {
-        return this.firstname !== '' &&
-          this.lastname !== '' &&
-          this.company !== ''
+        age: '',
+        imageUrl: ''
       }
     },
     methods: {
       onCreateHairdresser () {
-        if (!this.formIsValid) {
-          return
-        }
         const hairdresserData = {
           firstname: this.firstname,
           lastname: this.lastname,
           bio: this.bio,
-          company: this.company,
           age: this.age,
           imageUrl: this.imageUrl
         }
         this.$store.dispatch('createHairdresserProfile', hairdresserData)
         this.$router.push('/dashboard')
       }
-    }
+    },
+    computed: {
+      ...mapGetters([
+        'user',
+        'error',
+        'loading'
+      ])
+    },
+    watch: {
+      user (value) {
+        if (value !== null && value !== undefined) {
+          this.$router.push('profile')
+        }
+      }
+    },
   }
 </script>
 <style lang="scss" scoped>

@@ -50,5 +50,10 @@ new Vue({
       projectId: "topnot-74d6f",
       storageBucket: "topnot-74d6f.appspot.com"
     })
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
   }
 }).$mount('#app')

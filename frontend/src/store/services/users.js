@@ -74,7 +74,6 @@ actions = {
         lastname: payload.lastname,
         imageUrl: payload.imageUrl,
         bio: payload.bio,
-        company: payload.company,
         age: payload.age,
         creatorId: getters.user.id
       }

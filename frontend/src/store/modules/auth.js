@@ -42,8 +42,7 @@ const actions = {
     .then(
       user => {
         const newUser = {
-          id: user.user.uid,
-          rating: []
+          id: user.user.uid
         }
         commit('setUser', newUser)
       }
@@ -63,8 +62,7 @@ const actions = {
         user => {
           commit('setLoading', false)
           const newUser = {
-            id: user.uid,
-            registeredMeetups: []
+            id: user.uid
           }
           commit('setUser', newUser)
         }
@@ -76,6 +74,9 @@ const actions = {
           console.log(error)
         }
       )
+  },
+  autoSignIn ({commit}, payload) {
+    commit('setUser', {id: payload.uid})
   },
   clearError ({commit}) {
     commit('clearError')
