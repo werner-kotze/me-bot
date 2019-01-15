@@ -14,6 +14,9 @@
              </v-toolbar>
              <v-card-text>
                <v-form  @submit.prevent="onLocate($data)" >
+                 <span class="group pa-1">
+                   <v-icon>room</v-icon>
+                 </span>
                  <div >
                  <input
                    v-model="address"
@@ -27,7 +30,9 @@
                    </div>
                  <v-card-actions>
                    <v-spacer></v-spacer>
-                   <v-btn type="submit" color="accent" :disabled="loading" :loading="loading">
+
+
+                   <v-btn type="submit" color="accent" >
                     Locate
                      <span slot="loader" class="custom-loader">
                       <v-icon light>cached</v-icon>
@@ -37,28 +42,65 @@
                </v-form>
              </v-card-text>
            </v-card>
+         </section>
+         <br/>
+         <v-flex xs12  offset v-for="item in shoppingItems">
+           <br/>
+         <v-card >
 
-     </section>
+           <v-card-title primary-title >
+             <div >
+               <h3 > {{ item.name }} </h3>
+               <h5> {{ item.price }} </h5>
+             </div>
+           </v-card-title>
+
+           <v-card-actions>
+             <v-btn flat color="orange">Hallor At Me</v-btn>
+             <v-btn flat color="orange">Scope Location</v-btn>
+           </v-card-actions>
+         </v-card>
+         </v-flex>
+         <div class="google-map" :id="mapName"></div>
+
+
    </v-content>
   </v-app>
 </template>
+
 <script>
 
 
 
     import { mapActions } from 'vuex'
-    import { mapGetters } from 'vuex'
+              import { mapGetters } from 'vuex'
+      export default {
+      name: 'google-map',
+ props: ['name'],
+ data: function () {
+   return {
+     title:'topnot',
+     mapName: this.name + "-map",
 
-    export default {
-    data: () => ({
-      title: 'topnot',
       address : '',
       long : '',
-      lat : ''
-    }),
-    props: {
-      source: String
-    },
+      lat : '',
+      shoppingItems: [
+    {name: 'Chop Shop', price: '10'},
+     {name: 'Partners', price: '12'},
+     {     name: 'Fuck You Barbers', price: '10'},
+              {name: 'PoesKlap Haarkappers', price: '12'},
+     {name: 'God Se Knitter', price: '10'},
+     {name: 'Satan Se Balhaar-Kapper', price: '12'}
+   ],
+      placesToShow :[
+        'Chop Shop',
+        'Partners',
+        'Fuck You Barbers',
+        'PoesKlap Haarkappers',
+        'God Se Knitter'
+      ]
+    }},
     computed: {
       ...mapGetters([
         'address'
@@ -69,7 +111,16 @@
         onLocate: 'locate'
       })
     },
-    mounted() {
+    mounted:function() {
+
+      const element = document.getElementById(this.mapName)
+      const options = {
+      zoom: 14,
+      center: new google.maps.LatLng(51.501527,-0.1921837),
+      types : 'hair_care'
+      }
+     const map = new google.maps.Map(element, options);
+
      this.autocomplete = new google.maps.places.Autocomplete(
        (this.$refs.autocomplete),
        {types: ['geocode']}
@@ -91,12 +142,20 @@
       }
       );
 
-   }
+   },
+
 
     }
 
 </script>
 <style>
+
+.google-map {
+  width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  background: gray;}
+
 *, *::after, *::before {
   margin: 0;
   padding: 0;

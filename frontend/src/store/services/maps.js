@@ -38,7 +38,6 @@ const mutations = {
     commit('setLong', payload.long)
     commit('setLat' , payload.lat)
     commit('setAddress',payload.address)
-    alert(state.long)
     }
 
  }

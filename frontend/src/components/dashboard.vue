@@ -45,7 +45,7 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout>
-         <v-flex xs12 sm6 offset-sm3>
+          <v-flex xs12 sm6 offset-sm3>
            <v-card>
              <v-img
                src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"

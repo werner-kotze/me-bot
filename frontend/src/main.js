@@ -6,6 +6,8 @@ import AlertCmp from '@/components/alert.vue'
 import './stylus/main.styl'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
+import ImageUploader from "vue-image-upload-resize";
+
 
 import axios from 'axios'
 
@@ -24,6 +26,9 @@ Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS,
   router
 })
+
+Vue.use(ImageUploader);
+Vue.config.productionTip = false;
 
 Vue.use(Vuetify, {
   iconfont: 'mdi',
