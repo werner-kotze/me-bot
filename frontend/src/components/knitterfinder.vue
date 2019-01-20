@@ -115,17 +115,10 @@
  var shoppingItems;
  var map;//google stuff
  var infowindow;//google stuff
- var radius = 2000;
+ var radius = 5000;
 
  //Dummy value is replaced by all Nearby hairdressers
- var nearbyHairdressersOG = [{firstname:'g',
-															lastname:'hh',
-															companyName: ' jj',
-															companyAddr: ' jj',
-															companyLat: ' jj',
-															companyLong: ' jj',
-															hashtags: ' jj',
-															age: ' jj'}] ;
+ var nearbyHairdressersOG = [] ;
 
  //Dummy values that is replaced by places that Google Nearby Search returned
  var shoppingItemsOG= [{
@@ -292,11 +285,15 @@ export default {
         ...mapGetters([
             'address'
         ]),
+
 				/* Is supposed to call loadedHairDresser in users.js and return the
 				list of hairdressers in the DB
 
 				Something is wrong regarding the timing of this. It is sometimes called
 				too late and the x variable is empty when x is called in a function above.
+
+				EDIT : This method does not have to be here. I added this to mounted under
+				the .autocomplete.addListener and it seems to work.
 				*/
 				hairdressers () {
 
@@ -315,7 +312,8 @@ export default {
     mounted: function() {
 			//Calls loadedHairdressers directly...also unsrue about the placing of this
 			this.$store.dispatch('loadHairdressers');
-			
+
+
 
 //API call to allow autocompletion
         this.autocomplete = new google.maps.places.Autocomplete(
@@ -329,6 +327,10 @@ of the selected location. It calls callBack() as well as creates/up[dates] the m
 it is also used to return all nearby hairdressers
 */
         this.autocomplete.addListener('place_changed', () => {
+
+					x = this.$store.getters.loadedHairdressers;
+					alert(x.length);
+
             let place = this.autocomplete.getPlace();//place selected
             let ac = place.address_components;
             var address = ' ';
