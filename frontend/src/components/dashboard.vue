@@ -91,7 +91,7 @@
           menuItems = [
             {icon: 'dashboard', title: 'Home', link: '/dashboard'},
             {icon: 'question_answer', title: 'FAQ', link: '/'},
-            {icon: 'person', title: 'Profile', link: '/'}
+            {icon: 'person', title: 'Profile', link: '/profile'}
           ]
         }
         return menuItems

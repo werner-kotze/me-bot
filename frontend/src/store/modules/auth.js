@@ -39,13 +39,21 @@ const actions = {
     commit('setLoading', true)
     commit('clearError')
     firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
-    .then(
-      user => {
-        const newUser = {
-          id: user.user.uid
-        }
-        commit('setUser', newUser)
+    .then(function(user) {
+      var ref = firebase.database().ref().child('/users/');
+      var data = {
+        email: payload.email,
+        id: user.user.uid
       }
+      ref.child(user.user.uid).set(data).then(function(ref){
+        user => {
+          const newUser = {
+            id: user.user.uid
+          }
+          commit('setUser', newUser)
+        }
+      })
+    }
     ).catch (
       error => {
         commit('setLoading', false)
@@ -62,7 +70,7 @@ const actions = {
         user => {
           commit('setLoading', false)
           const newUser = {
-            id: user.uid
+            id: user.user.uid
           }
           commit('setUser', newUser)
         }
@@ -82,7 +90,7 @@ const actions = {
     commit('clearError')
   },
   logout ({commit}) {
-    firebase.auth().signOut().then(this.$router.push('dashboard'))
+    firebase.auth().signOut()
     commit('setUser', null)
   },
 }

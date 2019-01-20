@@ -3,7 +3,10 @@ import store from '@/store'
 import router from '@/router'
 import Vuetify from 'vuetify'
 import AlertCmp from '@/components/alert.vue'
+import MaterialCard from '@/components/card.vue'
+import Offset from '@/components/offset.vue'
 import './stylus/main.styl'
+import './styles/index.scss'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 
@@ -19,6 +22,9 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 Vue.config.productionTip = false
 Vue.component('app-alert', AlertCmp)
+Vue.component('material-card', MaterialCard)
+Vue.component('helper-offset', Offset)
+
 // more info: https://github.com/MatteoGabriele/vue-analytics
 Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS,
