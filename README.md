@@ -6,6 +6,12 @@
 
 ## Getting Started
 
+### Requirements
+
+- Ubuntu 18.04 / macOS / Windows Enterprise 
+
+- [Docker + Docker Compose](https://medium.com/@HendrikPrinsZA/basic-developer-environment-for-ubuntu-18-04-afad3c9c6520)
+
 #### Docker
  
   + `docker-compose up`
