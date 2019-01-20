@@ -7,6 +7,7 @@ import apiexample from '@/components/api-example.vue'
 import signup from '@/components/signup.vue'
 import signin from '@/components/signin.vue'
 import profile from '@/components/profile.vue'
+import knitterfinder from '@/components/knitterfinder.vue'
 
 const routes = [
   { path: '*', component: landing },
@@ -14,7 +15,8 @@ const routes = [
   { path: '/signup', component: signup },
   { path: '/signin', component: signin },
   { path: '/dashboard', component: dashboard },
-  { path: '/profile', component: profile }
+  { path: '/profile', component: profile },
+  { path: '/knitterfinder', component: knitterfinder}
 ]
 
 Vue.use(VueRouter)

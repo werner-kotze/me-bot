@@ -1,0 +1,76 @@
+<v-form ref="form" @submit.prevent="onCreateHairdresser">
+	<v-container grid-list-xl fluid>
+		<v-layout wrap>
+			<v-flex xs2>
+				<h3 > {{ this.firstname }} </h3>
+				<!-- <v-text-field
+					name="firstname"
+					label="First name"
+					v-model="firstname"
+					id="firstname"
+					color="purple darken-2"
+					required
+				></v-text-field> -->
+			</v-flex>
+			<v-flex xs2 >
+				<h3 > {{ this.lastname }} </h3>
+
+				<!-- <v-text-field
+					name="lastname"
+					label="Last name"
+					v-model="lastname"
+					color="blue darken-2"
+					required
+				></v-text-field> -->
+			</v-flex>
+			<!-- <v-flex xs12 sm6>
+				<v-text-field
+					name="imageUrl"
+					label="Image Url"
+					v-model="imageUrl"
+					color="blue darken-2"
+					required
+				></v-text-field> -->
+			<!-- </v-flex> -->
+			<v-flex xs12>
+				<div slot="label">
+					Chips
+				</div>
+				<v-combobox
+		 v-model="items"
+		 :items="items"
+		 label="Select your tags"
+		 multiple
+		 chips
+	 ></v-combobox>
+			</v-flex>
+			<v-flex xs12>
+					<h5 > {{ this.bio }} </h5>
+
+			</v-flex>
+		<v-flex xs12>
+				<h5 > {{ this.Company }} </h5>
+
+		</v-flex>
+			<!-- <v-flex xs12 sm6>
+				<v-slider
+					v-model="age"
+					color="orange"
+					label="Age"
+					hint="Be honest"
+					min="1"
+					max="100"
+					thumb-label
+				></v-slider>
+			</v-flex> -->
+		</v-layout>
+	</v-container>
+	<v-card-actions>
+		<v-spacer></v-spacer>
+		<v-btn
+			flat
+			color="primary"
+			type="submit"
+		>Register</v-btn>
+	</v-card-actions>
+</v-form>
