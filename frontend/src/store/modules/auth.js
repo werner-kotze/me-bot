@@ -4,7 +4,8 @@ import * as firebase from 'firebase'
 const state = {
   user: null,
   loading: false,
-  error: null
+  error: null,
+  sidebar: null
 }
 
 const getters = {
@@ -31,6 +32,9 @@ const mutations = {
   },
   clearError (state) {
     state.error = null
+  },
+  sidebar (state, val) {
+    state.sidebar = val
   }
 }
 

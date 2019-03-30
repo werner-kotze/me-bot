@@ -1,36 +1,22 @@
+// vue dependencies
 import Vue from 'vue'
 import store from '@/store'
 import router from '@/router'
 import Vuetify from 'vuetify'
-import AlertCmp from '@/components/alert.vue'
-import MaterialCard from '@/components/card.vue'
-import Offset from '@/components/offset.vue'
+
+// initialize app
+import App from '@/App.vue'
+
+// firebase
+import * as firebase from 'firebase'
+
+// styling
 import './stylus/main.styl'
 import './styles/index.scss'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 
-import axios from 'axios'
-
-import VueAnalytics from 'vue-analytics'
-
-import App from '@/App.vue'
-import * as firebase from 'firebase'
-import './registerServiceWorker'
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-
-Vue.config.productionTip = false
-Vue.component('app-alert', AlertCmp)
-Vue.component('material-card', MaterialCard)
-Vue.component('helper-offset', Offset)
-
-// more info: https://github.com/MatteoGabriele/vue-analytics
-Vue.use(VueAnalytics, {
-  id: process.env.VUE_APP_GOOGLE_ANALYTICS,
-  router
-})
-
+// theme
 Vue.use(Vuetify, {
   iconfont: 'mdi',
   theme: {
@@ -42,6 +28,32 @@ Vue.use(Vuetify, {
     success: '#4CAF50',
     warning: '#FFC107'
   }
+})
+
+// components
+import './components'
+import AlertCmp from '@/components/alert.vue'
+import MaterialCard from '@/components/card.vue'
+import Offset from '@/components/offset.vue'
+
+Vue.component('app-alert', AlertCmp)
+Vue.component('material-card', MaterialCard)
+Vue.component('helper-offset', Offset)
+
+// api
+import axios from 'axios'
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
+// pwa requirements
+import './registerServiceWorker'
+Vue.config.productionTip = false
+
+// analytics
+import VueAnalytics from 'vue-analytics'
+Vue.use(VueAnalytics, {
+  id: process.env.VUE_APP_GOOGLE_ANALYTICS,
+  router
 })
 
 new Vue({
