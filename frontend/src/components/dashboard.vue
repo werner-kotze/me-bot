@@ -1,9 +1,9 @@
 <template>
   <v-app id="inspire">
-    <v-toolbar color="indigo" dark fixed app>
+    <!-- <v-toolbar color="indigo" dark fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"><v-icon>menu</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>topnot</v-toolbar-title>
-    </v-toolbar>
+    </v-toolbar> -->
     <v-content>
       <v-container fluid fill-height>
         <v-layout>
@@ -37,9 +37,9 @@
 
 <script>
   export default {
-    data: () => ({
-      drawer: null
-    }),
+    // data: () => ({
+    //   drawer: null
+    // }),
     props: {
       source: String
     },

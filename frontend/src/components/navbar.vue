@@ -1,12 +1,12 @@
 <template>
   <v-navigation-drawer
   id="app-drawer"
-  v-model="drawer"
-  app
-  floating
-  persistent
-  mobile-break-point="991"
-  width="260"
+    v-model="drawer"
+    app
+    floating
+    persistent
+    mobile-break-point="991"
+    width="260"
   >
   <v-toolbar flat class="transparent">
      <v-list class="pa-0">

@@ -35,7 +35,9 @@ const mutations = {
   },
   sidebar (state, val) {
     state.sidebar = val
-  }
+  },
+  setDrawer: set('drawer'),
+  toggleDrawer: toggle('drawer')
 }
 
 const actions = {
