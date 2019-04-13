@@ -1,8 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-title>topnot</v-toolbar-title>
-    </v-toolbar>
+    <navbar/>
     <v-content>
       <v-container fluid fill-height>
         <v-layout>
@@ -89,9 +87,16 @@
 </template>
 
 <script>
+
+import navbar from '@/components/navbar.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+
+    components: {
+      navbar
+    },
+
     data () {
       return {
         firstname: '',
@@ -102,6 +107,7 @@ export default {
         dialog: false
       }
     },
+
     methods: {
       onCreateHairdresser () {
         const hairdresserData = {
@@ -115,6 +121,7 @@ export default {
         this.$router.push('/dashboard')
       }
     },
+
     computed: {
       ...mapGetters([
         'user',
@@ -122,15 +129,21 @@ export default {
         'loading'
       ])
     },
+
     watch: {
+
       user (value) {
         if (value !== null && value !== undefined) {
           this.$router.push('profile')
         }
       }
-    },
-  }
+
+    }
+
+  };
+
 </script>
+
 <style lang="scss" scoped>
   h1 {
     text-align: center;
