@@ -86,7 +86,6 @@
 									<v-flex xs12>
 										<div >
                       <v-subheader class="pa-0">Business Address</v-subheader>
-
 											<input
                           v-model="address"
                           ref="autocomplete"
@@ -206,6 +205,7 @@ export default {
     },
     methods: {
       onCreateHairdresser () {
+        console.log('hit action');
         const hairdresserData = {
           firstname: this.firstname,
           lastname: this.lastname,
@@ -230,8 +230,6 @@ export default {
       ])
     },
     mounted: function() {
-
-
         this.autocomplete = new google.maps.places.Autocomplete(
             (this.$refs.autocomplete), {
                 types: ['geocode']
@@ -276,7 +274,7 @@ export default {
            infowindow = new google.maps.InfoWindow();
            service = new google.maps.places.PlacesService(map);
            service.nearbySearch(request, callback);//request made to API
-                  });
+      });
 
     },
     watch: {
