@@ -8,6 +8,7 @@ import signup from '@/components/signup.vue'
 import signin from '@/components/signin.vue'
 import profile from '@/components/profile.vue'
 import knitterfinder from '@/components/knitterfinder.vue'
+import profilenew from '@/components/profile_new.vue'
 
 const routes = [
   { path: '*', component: landing },
@@ -16,7 +17,8 @@ const routes = [
   { path: '/signin', component: signin },
   { path: '/dashboard', component: dashboard },
   { path: '/profile', component: profile },
-  { path: '/knitterfinder', component: knitterfinder}
+  { path: '/knitterfinder', component: knitterfinder},
+  { path: '/profile-new', component: profilenew}
 ]
 
 Vue.use(VueRouter)
