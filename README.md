@@ -1,6 +1,6 @@
-# Topnot
+# Me Bot
 ![Vue](https://img.shields.io/badge/vue-2.2.4-green.svg)
-![Firebase](https://img.shields.io/badge/google-firebase-orange.svg)
+![PostgreSQL](https://img.shields.io/badge/google-firebase-orange.svg)
 ![Django](https://img.shields.io/badge/python-django-brightgreen.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -38,6 +38,4 @@
 
 ## Basic Overview
 
-The object of this application is to lower the percentage of bad haircut around the world. The application 
-finds all available hairdressers in a 5km radius and displays the most popular personal in the area. Users 
-can find hairdressers by area, price, style etc. 
+Ubiquitous virtual assistant to help you organize your life.
