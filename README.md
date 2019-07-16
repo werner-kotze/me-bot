@@ -1,6 +1,5 @@
 # Me Bot
 ![Vue](https://img.shields.io/badge/vue-2.2.4-green.svg)
-![PostgreSQL](https://img.shields.io/badge/progresql-orange.svg)
 ![Django](https://img.shields.io/badge/python-django-brightgreen.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
